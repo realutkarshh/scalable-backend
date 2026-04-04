@@ -6,6 +6,7 @@ export const getSummary = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      message: "Dashboard summary fetched successfully",
       data,
     });
   } catch (error) {

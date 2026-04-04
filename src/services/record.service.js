@@ -1,4 +1,5 @@
 import { Record } from "../models/record.model.js";
+import { ApiError } from "../utils/apiError.js";
 
 export const createRecord = async (data, userId) => {
   return await Record.create({
@@ -26,7 +27,7 @@ export const updateRecord = async (id, data, user) => {
   const record = await Record.findById(id);
 
   if (!record) {
-    throw new Error("Record not found");
+    throw new ApiError(404, "Record not found");
   }
 
   // Only owner or admin can update
@@ -34,7 +35,7 @@ export const updateRecord = async (id, data, user) => {
     user.role !== "admin" &&
     record.user.toString() !== user._id.toString()
   ) {
-    throw new Error("Not authorized");
+    throw new ApiError(403, "Not authorized");
   }
 
   return await Record.findByIdAndUpdate(id, data, { new: true });
@@ -44,14 +45,14 @@ export const deleteRecord = async (id, user) => {
   const record = await Record.findById(id);
 
   if (!record) {
-    throw new Error("Record not found");
+    throw new ApiError(404, "Record not found");
   }
 
   if (
     user.role !== "admin" &&
     record.user.toString() !== user._id.toString()
   ) {
-    throw new Error("Not authorized");
+    throw new ApiError(403, "Not authorized");
   }
 
   await record.deleteOne();

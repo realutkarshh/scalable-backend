@@ -9,6 +9,7 @@ export const createRecord = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
+      message: "Record created successfully",
       data: record,
     });
   } catch (error) {
@@ -25,6 +26,7 @@ export const getRecords = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      message: "Records fetched successfully",
       data: records,
     });
   } catch (error) {
@@ -42,6 +44,7 @@ export const updateRecord = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      message: "Record updated successfully",
       data: record,
     });
   } catch (error) {
@@ -58,6 +61,7 @@ export const deleteRecord = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      message: "Record deleted successfully",
       data: result,
     });
   } catch (error) {

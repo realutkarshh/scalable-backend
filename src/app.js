@@ -3,11 +3,17 @@ import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import recordRoutes from "./routes/record.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
+import { errorHandler } from "./middlewares/error.middleware.js";
+import { logger } from "./middlewares/logger.middleware.js";
+
 
 const app = express();
 
 // Middleware
 app.use(express.json());
+
+// Apply logger middleware to all routes
+app.use(logger);
 
 // Health check route
 app.get("/", (req, res) => {
@@ -25,5 +31,8 @@ app.use("/api/records", recordRoutes);
 
 // Dashboard routes
 app.use("/api/dashboard", dashboardRoutes);
+
+// Error handling middleware
+app.use(errorHandler);
 
 export default app;

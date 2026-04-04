@@ -1,11 +1,13 @@
 import { User } from "../models/user.model.js";
+import { ApiError } from "../utils/apiError.js";
+
 
 export const createUser = async (data) => {
   // Check if user already exists
   const existingUser = await User.findOne({ email: data.email });
 
   if (existingUser) {
-    throw new Error("User already exists");
+    throw new ApiError(400, "User already exists");
   }
 
   // Create user
@@ -27,7 +29,7 @@ export const updateUserStatus = async (userId, isActive) => {
   );
 
   if (!user) {
-    throw new Error("User not found");
+    throw new ApiError(404, "User not found");
   }
 
   return user;

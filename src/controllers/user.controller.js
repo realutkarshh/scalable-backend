@@ -7,6 +7,7 @@ export const createUser = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
+      message: "User created successfully",
       data: user,
     });
   } catch (error) {
@@ -21,6 +22,7 @@ export const getUsers = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      message: "Users fetched successfully",
       data: users,
     });
   } catch (error) {
@@ -38,6 +40,7 @@ export const updateUserStatus = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      message: "User status updated successfully",
       data: user,
     });
   } catch (error) {
