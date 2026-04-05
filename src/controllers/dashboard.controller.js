@@ -13,3 +13,31 @@ export const getSummary = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getMonthlyTrends = async (req, res, next) => {
+  try {
+    const data = await dashboardService.getMonthlyTrends(req.user);
+
+    res.status(200).json({
+      success: true,
+      message: "Monthly trends fetched successfully",
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getWeeklyTrends = async (req, res, next) => {
+  try {
+    const data = await dashboardService.getWeeklyTrends(req.user);
+
+    res.status(200).json({
+      success: true,
+      message: "Weekly trends fetched successfully",
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
