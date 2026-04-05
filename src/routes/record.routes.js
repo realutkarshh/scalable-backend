@@ -7,15 +7,19 @@ import {
 } from "../controllers/record.controller.js";
 
 import { protect } from "../middlewares/auth.middleware.js";
+import { authorize } from "../middlewares/role.middleware.js";
 
 const router = express.Router();
 
-// All routes protected
+// All routes require authentication
 router.use(protect);
 
-router.post("/", createRecord);
-router.get("/", getRecords);
-router.patch("/:id", updateRecord);
-router.delete("/:id", deleteRecord);
+// Viewer, Analyst, and Admin can view records
+router.get("/", authorize("admin", "analyst", "viewer"), getRecords);
+
+// Only Admin (and Analyst who owns the record — enforced in service) can create/update/delete
+router.post("/", authorize("admin", "analyst"), createRecord);
+router.patch("/:id", authorize("admin", "analyst"), updateRecord);
+router.delete("/:id", authorize("admin"), deleteRecord);
 
 export default router;

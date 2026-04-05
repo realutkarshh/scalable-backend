@@ -47,3 +47,21 @@ export const updateUserStatus = async (req, res, next) => {
     next(error);
   }
 };
+
+// Function to update the role of a user
+export const updateUserRole = async (req, res, next) => {
+  try {
+    const user = await userService.updateUserRole(
+      req.params.id,
+      req.body.role
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "User role updated successfully",
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
