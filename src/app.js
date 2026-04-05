@@ -5,9 +5,18 @@ import recordRoutes from "./routes/record.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
 import { logger } from "./middlewares/logger.middleware.js";
+import cors from "cors";
 
 
 const app = express();
+
+//CORS for the frontend 
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5500",
+    credentials: true,
+  })
+);
 
 // Middleware
 app.use(express.json());
