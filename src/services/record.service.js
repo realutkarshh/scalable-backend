@@ -11,16 +11,30 @@ export const createRecord = async (data, userId) => {
 export const getRecords = async (query, user) => {
   const filter = {};
 
-  // Optional filters
+  // Filter by type (income | expense)
   if (query.type) filter.type = query.type;
+
+  // Filter by category
   if (query.category) filter.category = query.category;
 
-  // Example: only admin sees all, others see their own
+  // Filter by date range: ?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD
+  if (query.startDate || query.endDate) {
+    filter.date = {};
+    if (query.startDate) filter.date.$gte = new Date(query.startDate);
+    if (query.endDate) {
+      // Include the full end day by setting time to end of day
+      const end = new Date(query.endDate);
+      end.setHours(23, 59, 59, 999);
+      filter.date.$lte = end;
+    }
+  }
+
+  // Admins see all records; everyone else sees only their own
   if (user.role !== "admin") {
     filter.user = user._id;
   }
 
-  return await Record.find(filter).sort({ createdAt: -1 });
+  return await Record.find(filter).sort({ date: -1 });
 };
 
 export const updateRecord = async (id, data, user) => {
