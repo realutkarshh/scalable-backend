@@ -29,8 +29,8 @@ export const getRecords = async (query, user) => {
     }
   }
 
-  // Admins see all records; everyone else sees only their own
-  if (user.role !== "admin") {
+  // Admins and Analysts see all records; viewers see only their own
+  if (user.role !== "admin" && user.role !== "analyst") {
     filter.user = user._id;
   }
 

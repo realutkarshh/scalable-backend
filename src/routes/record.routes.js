@@ -17,9 +17,9 @@ router.use(protect);
 // Viewer, Analyst, and Admin can view records
 router.get("/", authorize("admin", "analyst", "viewer"), getRecords);
 
-// Only Admin (and Analyst who owns the record — enforced in service) can create/update/delete
-router.post("/", authorize("admin", "analyst"), createRecord);
-router.patch("/:id", authorize("admin", "analyst"), updateRecord);
+// Only Admin can create/update/delete
+router.post("/", authorize("admin"), createRecord);
+router.patch("/:id", authorize("admin"), updateRecord);
 router.delete("/:id", authorize("admin"), deleteRecord);
 
 export default router;

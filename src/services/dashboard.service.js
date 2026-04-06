@@ -3,8 +3,8 @@ import { Record } from "../models/record.model.js";
 export const getSummary = async (user) => {
   const matchStage = {};
 
-  // Non-admin users see only their data
-  if (user.role !== "admin") {
+  // Non-admin, non-analyst users see only their data
+  if (user.role !== "admin" && user.role !== "analyst") {
     matchStage.user = user._id;
   }
 
@@ -57,7 +57,7 @@ export const getSummary = async (user) => {
 // Monthly trends for the past 12 months, broken down by income/expense
 export const getMonthlyTrends = async (user) => {
   const matchStage = {};
-  if (user.role !== "admin") matchStage.user = user._id;
+  if (user.role !== "admin" && user.role !== "analyst") matchStage.user = user._id;
 
   // Limit to last 12 months
   const twelveMonthsAgo = new Date();
@@ -96,7 +96,7 @@ export const getMonthlyTrends = async (user) => {
 // Weekly trends for the past 8 weeks, broken down by income/expense
 export const getWeeklyTrends = async (user) => {
   const matchStage = {};
-  if (user.role !== "admin") matchStage.user = user._id;
+  if (user.role !== "admin" && user.role !== "analyst") matchStage.user = user._id;
 
   // Limit to last 8 weeks
   const eightWeeksAgo = new Date();
