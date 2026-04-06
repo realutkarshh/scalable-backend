@@ -1,5 +1,7 @@
 # Finance Dashboard Backend System
 
+To view the APIs in action you can visit this "https://frontend-for-scalable-backend-repo.vercel.app/" 
+Use email: admin@example.com , analyst@example.com , viewer@example.com and password: 123456 for all of them.
 A scalable backend system built to manage financial records, user roles, and dashboard analytics with proper access control. This project demonstrates clean backend architecture, structured API design, and real-world engineering practices.
 
 ---
